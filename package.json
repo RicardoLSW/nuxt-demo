@@ -29,14 +29,17 @@
     "element-ui": "^2.13.2",
     "lodash": "^4.17.19",
     "nuxt": "^2.13.0",
+    "vue": "^2.6.11",
     "vue-amap": "^0.5.10"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.13.3",
     "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/eslint-config": "^3.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/stylelint-module": "^4.0.0",
+    "@types/node": "^14.0.23",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",

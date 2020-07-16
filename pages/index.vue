@@ -1,30 +1,28 @@
 <template>
-  <section style="width: 1000px; height: 800px;">
-    <no-ssr>
-      <el-amap
-        vid="amap"
-        :plugin="plugin"
-        class="amap-demo"
-        :center="center"
-        :events="events"
-      >
-        <el-amap-marker
-          v-for="(marker, index) in markers"
-          :key="index"
-          :position="marker.position"
-          :vid="index"
-          :events="marker.events"
-        ></el-amap-marker>
-        <el-amap-circle
-          :center="circle.center"
-          :radius="circle.radius"
-          :fill-opacity="0.5"
-          fill-color="#ffb5b3"
-          stroke-color="#ffb5b3"
-        ></el-amap-circle>
-        <el-amap-polyline :path="polyline.path"></el-amap-polyline>
-      </el-amap>
-    </no-ssr>
+  <section style="width: 7680px; height: 2160px;">
+    <el-amap
+      vid="amap"
+      :plugin="plugin"
+      class="amap-demo"
+      :center="center"
+      :events="events"
+    >
+      <el-amap-marker
+        v-for="(marker, index) in markers"
+        :key="index"
+        :position="marker.position"
+        :vid="index"
+        :events="marker.events"
+      ></el-amap-marker>
+      <el-amap-circle
+        :center="circle.center"
+        :radius="circle.radius"
+        :fill-opacity="0.5"
+        fill-color="#ffb5b3"
+        stroke-color="#ffb5b3"
+      ></el-amap-circle>
+      <el-amap-polyline :path="polyline.path"></el-amap-polyline>
+    </el-amap>
   </section>
 </template>
 
@@ -62,6 +60,7 @@ export default {
           pName: 'Geolocation',
           events: {
             click: (o) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               o.getCurrentPosition((status, result) => {
                 if (result && result.position) {
                   self.lng = result.position.lng
