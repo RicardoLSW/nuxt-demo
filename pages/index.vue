@@ -1,67 +1,116 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        nuxt-demo
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <section style="width: 1000px; height: 800px;">
+    <no-ssr>
+      <el-amap
+        vid="amap"
+        :plugin="plugin"
+        class="amap-demo"
+        :center="center"
+        :events="events"
+      >
+        <el-amap-marker
+          v-for="(marker, index) in markers"
+          :key="index"
+          :position="marker.position"
+          :vid="index"
+          :events="marker.events"
+        ></el-amap-marker>
+        <el-amap-circle
+          :center="circle.center"
+          :radius="circle.radius"
+          :fill-opacity="0.5"
+          fill-color="#ffb5b3"
+          stroke-color="#ffb5b3"
+        ></el-amap-circle>
+        <el-amap-polyline :path="polyline.path"></el-amap-polyline>
+      </el-amap>
+    </no-ssr>
+  </section>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({})
+<script>
+import * as _ from 'lodash'
+export default {
+  data() {
+    const self = this
+    return {
+      center: [121.59996, 31.197646],
+      events: {
+        init(map) {
+          const markers = _.cloneDeep(self.markers)
+          markers.forEach((item, index) => {
+            AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
+              item = new SimpleMarker({
+                iconLabel: {
+                  innerHTML: index,
+                  style: {
+                    color: '#fff',
+                  },
+                },
+                iconStyle: '#1995f5',
+                map,
+                position: item.position,
+              })
+            })
+          })
+        },
+      },
+      lng: 0,
+      lat: 0,
+      plugin: [
+        {
+          pName: 'Geolocation',
+          events: {
+            click: (o) => {
+              o.getCurrentPosition((status, result) => {
+                if (result && result.position) {
+                  self.lng = result.position.lng
+                  self.lat = result.position.lat
+                  self.center = [self.lng, self.lat]
+                  self.$nextTick()
+                }
+              })
+            },
+          },
+          buttonPosition: 'LT',
+        },
+      ],
+      markers: [
+        {
+          position: [121.59996, 31.197646],
+          events: {
+            click: () => {
+              this.$router.push({ path: '/single/250' })
+            },
+          },
+          visible: true,
+          clickable: true,
+        },
+        {
+          position: [122.59996, 32.197646],
+          events: {
+            click: () => {
+              this.$router.push({ path: '/single/250' })
+            },
+          },
+          visible: true,
+          clickable: true,
+        },
+      ],
+      circle: {
+        center: [121.59996, 31.197646],
+        radius: 6000,
+      },
+      polyline: {
+        path: [
+          [121.59996, 31.1976461],
+          [121.5389385, 31.197646],
+        ],
+      },
+    }
+  },
+  mounted() {},
+  beforeDestroy() {},
+  methods: {},
+}
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

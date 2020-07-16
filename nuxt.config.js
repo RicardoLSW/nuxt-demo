@@ -26,6 +26,13 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
+  // script: [
+  //   {
+  //     src:
+  //       'http://webapi.amap.com/maps?v=1.4.15&key=5e6a0267e959d1859762bfab64d31cb9',
+  //     type: 'text/javascript',
+  //   },
+  // ],
   /*
    ** Global CSS
    */
@@ -34,7 +41,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/element-ui'],
+  plugins: ['@/plugins/element-ui', '@/plugins/vue-amap'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
