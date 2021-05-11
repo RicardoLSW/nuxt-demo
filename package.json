@@ -27,7 +27,7 @@
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "element-ui": "^2.13.2",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "nuxt": "^2.13.0",
     "vue": "^2.6.11",
     "vue-amap": "^0.5.10"
